@@ -1,72 +1,153 @@
-/* /////////////
-    Estilos globales
-///////////// */
-h1 {
-    text-align: center;
+/* === Reset básico === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
-
-/* /////////////
-    Header
-///////////// */
-
-#listado-nav {
-    border: 2px solid #e3bc5e;
-    display: flex;
-    justify-content: space-around;
+/* === Header === */
+.header {
+  background-color: #43b145;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-#listado-nav li {
-    list-style-type: none;
+.header h1 {
+  font-size: 24px;
 }
 
-
-
-/* /////////////
-    index
-///////////// */
-.li-listados {
-    display: flex;
-    align-items: center;
-    border: 2px solid #e3bc5e;
-    font-size: 16px;
-    padding-right: 10px;
-    border-radius: 3px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+.header input[type="text"] {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  width: 200px;
+}
+.ordenar{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+#ordenar-nombre, #ordenar-precio{
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+}
+/* === Contenedor principal === */
+main {
+  padding: 30px;
 }
 
-.productos-listados {
-    justify-content: space-between;
+/* === Título principal === */
+#titulo-fruteria {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-.img-listados {
-    width: 65px;
+/* === Grilla de productos === */
+.contenedor-productos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
-
-/* ===============================
-        LISTADOS DINAMICOS
-================================== */
-
-.li-listados_boton {
-    width: 25%;
+/* === Tarjetas de productos === */
+.card-producto {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 160px;
+  padding: 15px;
+  text-align: center;
+  transition: box-shadow 0.2s ease;
 }
 
-.li-listados_datos p, .listados_boton {
-    margin: 0 !important;
+.card-producto img {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 10px;
 }
 
-.li-listados_datos {
-    display: flex;
-    justify-content: space-around;
-    width: 70%;
-    align-items: center;
+.card-producto h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  text-transform: lowercase;
 }
 
+.card-producto p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
-#updateForm-container {
-    width: 50%;
-    margin: 0 auto;
-    margin-top: 60px;
+.card-producto button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card-producto button:hover {
+  background-color: #218838;
+}
+
+/* === Carrito === */
+
+
+
+
+.bloque-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.boton-eliminar {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.boton-eliminar:hover {
+  background-color: darkred;
+}
+
+.total-carrito {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#vaciar-carrito{
+  text-align: center;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  align-items: center;
+}
+#vaciar-carrito:hover{
+  background-color: darkred;
 }
