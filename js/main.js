@@ -1,6 +1,22 @@
 
 
 // Ejercicio 2 - Mostrar nombre del alumno en <nav> y consola
+// function imprimirDatosAlumno() {
+//     const alumno = {
+//         dni: 43877963,
+//         nombre: "Lucia",
+//         apellido: "Pokoik"
+//     };
+
+//     // Imprimir en consola 
+//     console.log(`Alumno: ${alumno.nombre} ${alumno.apellido} - DNI: ${alumno.dni}`);
+
+//     // Mostrar en el div con clase "nombreAlumno"
+//     let nombreDiv = document.querySelector(".nombreAlumno");
+//     if (nombreDiv) {
+//         nombreDiv.innerText = `${alumno.nombre} ${alumno.apellido}`;
+//     } 
+// }
 function imprimirDatosAlumno() {
     const alumno = {
         dni: 43877963,
