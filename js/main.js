@@ -55,11 +55,12 @@ let products = [];
 function mostrarProductos(array) {
   let cartaProducto = "";
   for (let i = 0; i < array.length; i++) {
+    console.log(array[i].id);
     cartaProducto += `<div class="card-producto">
                             <img src='${array[i].image}' alt="">
                             <h3>${array[i].name}</h3>
                             <p>$${array[i].price}</p>
-                            <button onclick="agregarAlCarrito(${array[i].id_producto})">Agregar al carrito</button>
+                            <button onclick="agregarAlCarrito(${array[i].id})">Agregar al carrito</button>
                         </div>`;
   }
   productoContainer.innerHTML = cartaProducto;
@@ -94,165 +95,166 @@ seguir esta estructura:
     contador.innerText = carrito.length;
 } */
 function agregarAlCarrito(id) {
-  let producto = products.find((p) => p.id_producto === id);
-  carrito.push(producto);
-  console.log("Carrito actual:", carrito);
-  mostrarCarrito();
-  actualizarContador();
-  guardarCarritoEnLocalStorage();
+    let producto = products.find((p) => p.id === id);
+    carrito.push(producto);
+    console.log("Carrito actual:", carrito);
+    mostrarCarrito();
+    actualizarContador();
+    guardarCarritoEnLocalStorage();
 }
 
 //5.2
 function mostrarCarrito() {
-  const itemsCarrito = document.getElementById("items-carrito");
-  if (carrito.length === 0) {
-    itemsCarrito.innerHTML = `<p>No hay elementos en el carrito.</p>`;
-    return;
-  }
+    const itemsCarrito = document.getElementById("items-carrito");
+    if (carrito.length === 0) {
+        itemsCarrito.innerHTML = `<p>No hay elementos en el carrito.</p>`;
+        return;
+    }
 
-  let html = "";
-  carrito.forEach((producto, index) => {
-    html += `<li class="bloque-item">
-                    <p class="nombre-item">${producto.name} - $${producto.price}</p>
-                    <button class="boton-eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
-                </li>`;
-  });
+    let html = "";
+    carrito.forEach((producto, index) => {
+        html += `<li class="bloque-item">
+                        <p class="nombre-item">${producto.name} - $${producto.price}</p>
+                        <button class="boton-eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
+                    </li>`;
+    });
 
-  itemsCarrito.innerHTML = `<ul>${html}</ul>`;
+    itemsCarrito.innerHTML = `<ul>${html}</ul>`;
 }
 
 //5.3
 function eliminarProducto(index) {
-  carrito.splice(index, 1);
-  mostrarCarrito();
-  actualizarContador();
-  guardarCarritoEnLocalStorage();
+    carrito.splice(index, 1);
+    mostrarCarrito();
+    actualizarContador();
+    guardarCarritoEnLocalStorage();
 }
 
 //Ejercicio 6: guardar y cargar carrito en la localStorage
 // Guardar el carrito en localStorage
 function guardarCarritoEnLocalStorage() {
-  localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
 // Cargar el carrito desde localStorage
 function cargarCarritoDesdeLocalStorage() {
-  const carritoGuardado = localStorage.getItem("carrito");
-  if (carritoGuardado) {
-    carrito = JSON.parse(carritoGuardado);
-    mostrarCarrito();
-    actualizarContador();
-  }
+    const carritoGuardado = localStorage.getItem("carrito");
+    if (carritoGuardado) {
+        carrito = JSON.parse(carritoGuardado);
+        mostrarCarrito();
+        actualizarContador();
+    }
 }
 
 //Ejercicio 7:
 function actualizarContador() {
-  const contador = document.getElementById("contador-carrito");
-  contador.innerText = carrito.length;
+    const contador = document.getElementById("contador-carrito");
+    contador.innerText = carrito.length;
 
-  // Si no hay productos, vaciar localStorage
-  if (carrito.length === 0) {
-    localStorage.removeItem("carrito");
-  }
+    // Si no hay productos, vaciar localStorage
+    if (carrito.length === 0) {
+        localStorage.removeItem("carrito");
+    }
 
-  // Actualizar también el total
-  actualizarTotalCarrito();
+    // Actualizar también el total
+    actualizarTotalCarrito();
 }
 
 function actualizarTotalCarrito() {
-  const totalElement = document.getElementById("precio-total");
+    const totalElement = document.getElementById("precio-total");
 
-  if (carrito.length === 0) {
-    totalElement.innerText = "$0.00";
-    return;
-  }
+    if (carrito.length === 0) {
+        totalElement.innerText = "$0.00";
+        return;
+    }
 
-  const total = carrito.reduce((suma, producto) => suma + producto.price, 0);
+    const total = carrito.reduce((suma, producto) => suma + producto.price, 0);
 
-  totalElement.innerText = `$${total.toFixed(2)}`;
+    totalElement.innerText = `$${total.toFixed(2)}`;
 }
 
 //Ejercicio 8: ordenar elementos
 // Botones de orden
 document
-  .getElementById("mostrar-suplementos")
-  .addEventListener("click", function () {
-    const suplementos = products.filter(
-      (producto) => producto.category === "suplemento"
-    );
-    mostrarProductos(suplementos);
-  });
+    .getElementById("mostrar-suplementos")
+    .addEventListener("click", function () {
+        const suplementos = products.filter(
+        (producto) => producto.category === "suplemento"
+        );
+        mostrarProductos(suplementos);
+    });
 
 document
-  .getElementById("mostrar-equipamiento")
-  .addEventListener("click", function () {
-    const equipamiento = products.filter(
-      (producto) => producto.category === "equipamiento"
-    );
-    mostrarProductos(equipamiento);
-  });
+    .getElementById("mostrar-equipamiento")
+    .addEventListener("click", function () {
+        const equipamiento = products.filter(
+        (producto) => producto.category === "equipamiento"
+        );
+        mostrarProductos(equipamiento);
+    });
 
 document.getElementById("mostrar-todos").addEventListener("click", function () {
-  mostrarProductos(products); // Muestra todos los productos originales
+    mostrarProductos(products); // Muestra todos los productos originales
 });
 
 //Ejercicio 9: vaciar carrito
 function vaciarCarrito() {
-  carrito = [];
-  mostrarCarrito();
-  actualizarContador();
-  localStorage.removeItem("carrito");
+    carrito = [];
+    mostrarCarrito();
+    actualizarContador();
+    localStorage.removeItem("carrito");
 }
 
 // Función que se ejecuta en la web
 function init() {
-  cargarCarritoDesdeLocalStorage();
-  imprimirDatosAlumno();
+    cargarCarritoDesdeLocalStorage();
+    imprimirDatosAlumno();
 
-  fetch("http://localhost:3000/api/products")
-    .then((response) => response.json())
-    .then((data) => {
-      products = data.payload; // ✅ CORRECTO
-      mostrarProductos(products);
-      filtrarProductos(products);
+    fetch("http://localhost:3000/api/products")
+        .then((response) => response.json())
+        .then((data) => {
+        products = data.payload; // ✅ CORRECTO
+        mostrarProductos(products);
+        filtrarProductos(products);
 
-      // Eventos
-      document
-        .getElementById("ordenar-nombre")
-        .addEventListener("click", function () {
-          const ordenadoPorNombre = [...products].sort((a, b) =>
-            a.name.localeCompare(b.name)
-          );
-          mostrarProductos(ordenadoPorNombre);
-        });
+        // Eventos
+        // document
+        //     .getElementById("ordenar-nombre")
+        //     .addEventListener("click", function () {
+        //     const ordenadoPorNombre = [...products].sort((a, b) =>
+        //         a.name.localeCompare(b.name)
+        //     );
+        //     mostrarProductos(ordenadoPorNombre);
+        // });
 
-      document
-        .getElementById("ordenar-precio")
-        .addEventListener("click", function () {
-          const ordenadoPorPrecio = [...products].sort(
-            (a, b) => a.price - b.price
-          );
-          mostrarProductos(ordenadoPorPrecio);
-        });
+        // document
+        //     .getElementById("ordenar-precio")
+        //     .addEventListener("click", function () {
+        //     const ordenadoPorPrecio = [...products].sort(
+        //         (a, b) => a.price - b.price
+        //     );
+        //     mostrarProductos(ordenadoPorPrecio);
+        // });
 
-      document
+        document
         .getElementById("vaciar-carrito")
         .addEventListener("click", vaciarCarrito);
     })
     .catch((error) => {
-      console.error("Error al cargar productos:", error);
+        console.error("Error al cargar productos:", error);
     });
 }
 function actualizarContador() {
-  const contador = document.getElementById("contador-carrito");
-  contador.innerText = carrito.length;
+    const contador = document.getElementById("contador-carrito");
+    contador.innerText = carrito.length;
 
-  // Si no hay productos, vaciar localStorage
-  if (carrito.length === 0) {
-    localStorage.removeItem("carrito");
-  }
+    // Si no hay productos, vaciar localStorage
+    if (carrito.length === 0) {
+        localStorage.removeItem("carrito");
+    }
 
   // Actualizar también el total
-  actualizarTotalCarrito();
+    actualizarTotalCarrito();
 }
-init();
+document.addEventListener("DOMContentLoaded", init);
+
